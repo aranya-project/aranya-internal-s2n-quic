@@ -3,6 +3,7 @@ name = "async-client-hello-callback"
 version = "0.1.0"
 authors = ["AWS s2n"]
 edition = "2021"
+publish = false
 
 [dependencies]
 s2n-quic = { version = "1", path = "../../quic/s2n-quic", features = ["provider-tls-s2n", "unstable_client_hello"], package = "aranya-internal-s2n-quic" }

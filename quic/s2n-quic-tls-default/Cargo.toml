@@ -9,6 +9,7 @@ rust-version = "1.75"
 license = "Apache-2.0"
 # Exclude corpus files when publishing to crates.io
 exclude = ["corpus.tar.gz"]
+publish = false
 
 [features]
 # The [`?`](https://doc.rust-lang.org/cargo/reference/features.html?highlight=addative#dependency-features)

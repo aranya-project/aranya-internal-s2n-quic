@@ -2,6 +2,7 @@
 name = "ebpf"
 version = "0.1.0"
 edition = "2021"
+publish = false
 
 [dependencies]
 # These crates are not published so use a git dependency for now. See https://github.com/aya-rs/aya/issues/464

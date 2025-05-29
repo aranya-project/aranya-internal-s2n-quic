@@ -3,6 +3,7 @@ name = "rustls-mtls"
 version = "0.1.0"
 edition = "2021"
 authors = ["Rick Richardson <rick.richardson@gmail.com>", "AWS s2n"]
+publish = false
 
 [dependencies]
 # Remove the `provider-tls-default` feature and add `provider-tls-rustls` in order to use the rustls backend
