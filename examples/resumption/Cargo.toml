@@ -2,7 +2,8 @@
 name = "resumption"
 version = "0.1.0"
 edition = "2021"
+publish = false
 
 [dependencies]
-s2n-quic = { version = "1", path = "../../quic/s2n-quic", features = ["provider-tls-s2n", "unstable_resumption"]}
+s2n-quic = { version = "1", path = "../../quic/s2n-quic", features = ["provider-tls-s2n", "unstable_resumption"], package = "aranya-internal-s2n-quic" }
 tokio = { version = "1", features = ["full"] }

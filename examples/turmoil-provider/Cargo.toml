@@ -3,9 +3,10 @@ name = "turmoil-provider"
 version = "0.1.0"
 authors = ["AWS s2n"]
 edition = "2021"
+publish = false
 
 [dependencies]
-s2n-quic = { version = "1", path = "../../quic/s2n-quic", features = ["provider-event-tracing", "unstable-provider-io-turmoil"] }
+s2n-quic = { version = "1", path = "../../quic/s2n-quic", features = ["provider-event-tracing", "unstable-provider-io-turmoil"] , package = "aranya-internal-s2n-quic" }
 tokio = { version = "1", features = ["full"] }
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
 turmoil = { version = "0.5.2" }
