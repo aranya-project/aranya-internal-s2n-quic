@@ -6,7 +6,7 @@ edition = "2021"
 publish = false
 
 [dependencies]
-s2n-quic = { version = "1", path = "../../quic/s2n-quic" }
+s2n-quic = { version = "1", path = "../../quic/s2n-quic" , package = "aranya-internal-s2n-quic" }
 # enable the post-quantum feature in s2n-tls
 s2n-tls = { version = "*", features = ["pq"] }
 tokio = { version = "1", features = ["full"] }

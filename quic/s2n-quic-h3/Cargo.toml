@@ -13,7 +13,7 @@ publish = false
 bytes = { version = "1", default-features = false }
 futures = { version = "0.3", default-features = false }
 h3 = "0.0.8"
-s2n-quic = { path = "../s2n-quic" }
+s2n-quic = { path = "../s2n-quic" , package = "aranya-internal-s2n-quic" }
 tracing = { version = "0.1", optional = true }
 
 [features]

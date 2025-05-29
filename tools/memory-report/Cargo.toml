@@ -7,7 +7,7 @@ publish = false
 
 [dependencies]
 dhat = "0.3"
-s2n-quic = { path = "../../quic/s2n-quic" }
+s2n-quic = { path = "../../quic/s2n-quic" , package = "aranya-internal-s2n-quic" }
 s2n-quic-core = { path = "../../quic/s2n-quic-core", features = ["testing"] }
 tokio = { version = "1", features = ["full"] }
 
