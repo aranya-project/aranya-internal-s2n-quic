@@ -217,6 +217,9 @@ impl Session {
                 self.rx_phase.transition();
                 context.on_handshake_complete()?;
                 context.on_tls_exporter_ready(self)?;
+                if let Some(chosen) = self.connection.chosen_psk_identity() {
+                    context.on_tls_context(Box::new(chosen.to_vec()));
+                }
             }
 
             self.emitted_handshake_complete = true;
