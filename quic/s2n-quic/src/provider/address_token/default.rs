@@ -9,7 +9,6 @@
 //! The default provider does not support tokens delivered in a NEW_TOKEN frame.
 
 use core::{mem::size_of, time::Duration};
-use hash_hasher::HashHasher;
 use s2n_codec::{DecoderBuffer, DecoderBufferMut};
 use s2n_quic_core::{
     connection, event::api::SocketAddress, random, time::Timestamp, token::Source,
@@ -28,7 +27,7 @@ struct BaseKey {
     //= https://www.rfc-editor.org/rfc/rfc9000#section-8.1.4
     //# To protect against such attacks, servers MUST ensure that
     //# replay of tokens is prevented or limited.
-    duplicate_filter: Option<cuckoofilter::CuckooFilter<HashHasher>>,
+    duplicate_filter: Option<fastbloom::BloomFilter>,
 }
 
 impl BaseKey {
@@ -66,9 +65,7 @@ impl BaseKey {
         random.private_random_fill(&mut key_material[..]);
         let key = hmac::Key::new(hmac::HMAC_SHA256, key_material.as_ref());
 
-        // TODO clear the filter instead of recreating. This is pending a merge to crates.io
-        // (https://github.com/axiomhq/rust-cuckoofilter/pull/52)
-        self.duplicate_filter = None;
+        self.duplicate_filter.as_mut().map(|f| f.clear());
 
         self.key = Some((expires_at, key));
 
@@ -215,9 +212,9 @@ impl Format {
             let _ = self.keys[token.header.key_id() as usize]
                 .duplicate_filter
                 .get_or_insert_with(|| {
-                    cuckoofilter::CuckooFilter::with_capacity(cuckoofilter::DEFAULT_CAPACITY)
+                    fastbloom::BloomFilter::with_false_pos(0.001).expected_items((1 << 20) - 1)
                 })
-                .add(token);
+                .insert(token);
 
             return token.original_destination_connection_id();
         }
